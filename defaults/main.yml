@@ -1,2 +1,12 @@
 ---
 # defaults file for rhportal_reg
+
+rhsm_state: present
+
+# Change this to the desired pool ID
+rhsm_pool: ""
+
+rhsm_repo_list:
+  - rhel-7-server-rpms
+rhsm_uname: changeme
+rhsm_pw: changeme

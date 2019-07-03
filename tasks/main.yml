@@ -1,2 +1,35 @@
 ---
 # tasks file for rhportal_reg
+
+- name: Start fresh and unsubscribe to RHSM
+  redhat_subscription:
+    state: absent
+
+- block:
+
+  - name: Subscribe to RHSM
+    redhat_subscription:
+      pool: "{{ rhsm_pool }}"
+      password: "{{ rhsm_pw }}"
+      username: "{{ rhsm_uname }}"
+      force_register: yes
+      state: present
+
+  - name: Reset repositories
+    command: "subscription-manager repos --disable=*"
+
+  - name: Setup repositories
+    command: "subscription-manager repos --enable={{ item }}"
+    with_items: "{{ rhsm_repo_list }}"
+
+  - name: Cleanup yum repositories
+    command: "yum clean all"
+    args:
+      warn: No
+
+  when: rhsm_state == "present"
+
+- name: Remove yum cache
+  file:
+    path: /var/cache/yum
+    state: absent
