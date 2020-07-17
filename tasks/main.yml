@@ -9,6 +9,7 @@
 
   - name: Subscribe to RHSM using an activation key
     redhat_subscription:
+      activationkey: "{{ rhsm_activation_key }}"
       force_register: yes
       state: present
 
