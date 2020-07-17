@@ -11,6 +11,7 @@
     redhat_subscription:
       activationkey: "{{ rhsm_activation_key }}"
       force_register: yes
+      org_id: "{{ rhsm_organization_id }}"
       state: present
 
   when: rhsm_activation_key and rhsm_state == "present"

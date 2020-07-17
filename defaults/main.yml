@@ -14,14 +14,15 @@ rhsm_repo_list:
 
 # Define how the system should be registered - define one of the options below
 #
-# If rhsm_activation_key is defined, the system will be registered using an activation key and the variables
-# defined as part of Option 2 are ignored.
+# If rhsm_activation_key is defined, the system will be registered using an activation key and organization ID.
+# The variables defined as part of Option 2 are ignored.
 #
 # If rhsm_activation_key is not defined, the system will be registered using a username, password, and pool ID.
 #
 # Option 1 - use an activation key
 
 rhsm_activation_key: ""
+rhsm_organization_id: ""
 
 # Option 2 - use a username, password, and pool ID
 
