@@ -7,13 +7,26 @@
 
 - block:
 
-  - name: Subscribe to RHSM
+  - name: Subscribe to RHSM using an activation key
+    redhat_subscription:
+      force_register: yes
+      state: present
+
+  when: rhsm_activation_key and rhsm_state == "present"
+
+- block:
+
+  - name: Subscribe to RHSM using a username, password, and pool ID
     redhat_subscription:
       pool: "{{ rhsm_pool }}"
       password: "{{ rhsm_pw }}"
       username: "{{ rhsm_uname }}"
       force_register: yes
       state: present
+
+  when: not rhsm_activation_key and rhsm_state == "present"
+
+- block:
 
   - name: Reset repositories
     command: "subscription-manager repos --disable=*"

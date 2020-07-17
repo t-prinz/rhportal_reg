@@ -1,12 +1,30 @@
 ---
 # defaults file for rhportal_reg
 
+# Specify whether the role should register or unregister the system
+# present: register the system
+# absent: unresiter the system
+
 rhsm_state: present
 
-# Change this to the desired pool ID
-rhsm_pool: ""
+# Define the repositories that should be enabled
 
 rhsm_repo_list:
   - rhel-7-server-rpms
+
+# Define how the system should be registered - define one of the options below
+#
+# If rhsm_activation_key is defined, the system will be registered using an activation key and the variables
+# defined as part of Option 2 are ignored.
+#
+# If rhsm_activation_key is not defined, the system will be registered using a username, password, and pool ID.
+#
+# Option 1 - use an activation key
+
+rhsm_activation_key: ""
+
+# Option 2 - use a username, password, and pool ID
+
 rhsm_uname: changeme
 rhsm_pw: changeme
+rhsm_pool: ""
