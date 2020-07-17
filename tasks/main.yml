@@ -10,6 +10,7 @@
   - name: Subscribe to RHSM using an activation key
     redhat_subscription:
       activationkey: "{{ rhsm_activation_key }}"
+      consumer_name: "{{ inventory_hostname }}"
       force_register: yes
       org_id: "{{ rhsm_organization_id }}"
       state: present
@@ -20,6 +21,7 @@
 
   - name: Subscribe to RHSM using a username, password, and pool ID
     redhat_subscription:
+      consumer_name: "{{ inventory_hostname }}"
       pool: "{{ rhsm_pool }}"
       password: "{{ rhsm_pw }}"
       username: "{{ rhsm_uname }}"
