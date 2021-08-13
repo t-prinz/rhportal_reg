@@ -5,6 +5,9 @@
   redhat_subscription:
     state: absent
 
+- name: Clean out configuration data
+  command: subscription-manager clean
+
 - block:
 
   - name: Subscribe to RHSM using an activation key
