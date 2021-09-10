@@ -22,10 +22,10 @@
 
 - block:
 
-  - name: Subscribe to RHSM using a username, password, and pool ID
+  - name: Subscribe to RHSM using a username, password, and pool ID(s)
     redhat_subscription:
       consumer_name: "{{ inventory_hostname }}"
-      pool: "{{ rhportal_reg_rhsm_pool }}"
+      pool: "{{ rhportal_reg_rhsm_pool_ids }}"
       password: "{{ rhportal_reg_rhsm_pw }}"
       username: "{{ rhportal_reg_rhsm_uname }}"
       force_register: yes

@@ -35,4 +35,4 @@ rhportal_reg_rhsm_organization_id: ""
 
 rhportal_reg_rhsm_uname: changeme
 rhportal_reg_rhsm_pw: changeme
-rhportal_reg_rhsm_pool: ""
+rhportal_reg_rhsm_pool_ids: []
