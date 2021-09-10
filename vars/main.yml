@@ -1,2 +1,5 @@
 ---
 # vars file for rhportal_reg
+
+# Variable defining the list of repositories to be enabled
+rhportal_reg_rhsm_repo_list: []

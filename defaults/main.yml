@@ -2,30 +2,37 @@
 # defaults file for rhportal_reg
 
 # Specify whether the role should register or unregister the system
+#
 # present: register the system
 # absent: unresiter the system
 
-rhsm_state: present
+rhportal_reg_rhsm_state: present
 
-# Define the repositories that should be enabled
+# Specify additional repositories that should be enabled outside of the base repositories
+# The base repositories that are enabled will be:
+#   RHEL 7:
+#     rhel-7-server-rpms
+#
+#   RHEL 8:
+#     rhel-8-for-x86_64-baseos-rpms
+#     rhel-8-for-x86_64-appstream-rpms
 
-rhsm_repo_list:
-  - rhel-7-server-rpms
+rhportal_reg_rhsm_supplemental_repo_list: []
 
 # Define how the system should be registered - define one of the options below
 #
-# If rhsm_activation_key is defined, the system will be registered using an activation key and organization ID.
+# If rhportal_reg_rhsm_activation_key is defined, the system will be registered using an activation key and organization ID.
 # The variables defined as part of Option 2 are ignored.
 #
-# If rhsm_activation_key is not defined, the system will be registered using a username, password, and pool ID.
+# If rhportal_reg_rhsm_activation_key is not defined, the system will be registered using a username, password, and pool ID.
 #
 # Option 1 - use an activation key
 
-rhsm_activation_key: ""
-rhsm_organization_id: ""
+rhportal_reg_rhsm_activation_key: ""
+rhportal_reg_rhsm_organization_id: ""
 
 # Option 2 - use a username, password, and pool ID
 
-rhsm_uname: changeme
-rhsm_pw: changeme
-rhsm_pool: ""
+rhportal_reg_rhsm_uname: changeme
+rhportal_reg_rhsm_pw: changeme
+rhportal_reg_rhsm_pool: ""

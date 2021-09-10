@@ -12,26 +12,52 @@
 
   - name: Subscribe to RHSM using an activation key
     redhat_subscription:
-      activationkey: "{{ rhsm_activation_key }}"
+      activationkey: "{{ rhportal_reg_rhsm_activation_key }}"
       consumer_name: "{{ inventory_hostname }}"
       force_register: yes
-      org_id: "{{ rhsm_organization_id }}"
+      org_id: "{{ rhportal_reg_rhsm_organization_id }}"
       state: present
 
-  when: rhsm_activation_key and rhsm_state == "present"
+  when: rhportal_reg_rhsm_activation_key and rhportal_reg_rhsm_state == "present"
 
 - block:
 
   - name: Subscribe to RHSM using a username, password, and pool ID
     redhat_subscription:
       consumer_name: "{{ inventory_hostname }}"
-      pool: "{{ rhsm_pool }}"
-      password: "{{ rhsm_pw }}"
-      username: "{{ rhsm_uname }}"
+      pool: "{{ rhportal_reg_rhsm_pool }}"
+      password: "{{ rhportal_reg_rhsm_pw }}"
+      username: "{{ rhportal_reg_rhsm_uname }}"
       force_register: yes
       state: present
 
-  when: not rhsm_activation_key and rhsm_state == "present"
+  when: not rhportal_reg_rhsm_activation_key and rhportal_reg_rhsm_state == "present"
+
+- name: Define repositories to be enabled for RHEL 7
+  set_fact:
+    rhportal_reg_rhsm_repo_list:
+      - rhel-7-server-rpms
+  when: ansible_facts.distribution is defined and ansible_facts.distribution == "RedHat" and ansible_facts.distribution_major_version is defined and ansible_facts.distribution_major_version == "7"
+
+- name: Define repositories to be enabled for RHEL 8
+  set_fact:
+    rhportal_reg_rhsm_repo_list:
+      - rhel-8-for-x86_64-baseos-rpms
+      - rhel-8-for-x86_64-appstream-rpms
+  when: ansible_facts.distribution is defined and ansible_facts.distribution == "RedHat" and ansible_facts.distribution_major_version is defined and ansible_facts.distribution_major_version == "8"
+
+- name: Print default list of repositories to enable
+  debug:
+    var: rhportal_reg_rhsm_repo_list
+
+- name: Add additional repositories to enable
+  set_fact:
+    rhportal_reg_rhsm_repo_list: "{{ rhportal_reg_rhsm_repo_list + rhportal_reg_rhsm_supplemental_repo_list }}"
+  when: rhportal_reg_rhsm_supplemental_repo_list is defined
+
+- name: Print full list of repositories to enable
+  debug:
+    var: rhportal_reg_rhsm_repo_list
 
 - block:
 
@@ -40,14 +66,14 @@
 
   - name: Setup repositories
     command: "subscription-manager repos --enable={{ item }}"
-    with_items: "{{ rhsm_repo_list }}"
+    with_items: "{{ rhportal_reg_rhsm_repo_list }}"
 
   - name: Cleanup yum repositories
     command: "yum clean all"
     args:
       warn: No
 
-  when: rhsm_state == "present"
+  when: rhportal_reg_rhsm_state == "present"
 
 - name: Remove yum cache
   file:
