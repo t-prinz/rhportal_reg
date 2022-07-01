@@ -1,9 +1,16 @@
 ---
 # tasks file for rhportal_reg
 
-- name: Start fresh and unsubscribe to RHSM
-  redhat_subscription:
-    state: absent
+# This fails on RHEL 9
+#- name: Start fresh and unsubscribe to RHSM
+#  redhat_subscription:
+#    state: absent
+
+- name: Remove all subscriptions
+  command: subscription-manager remove --all
+
+- name: Unregister from the portal
+  command: subscription-manager unregister
 
 - name: Clean out configuration data
   command: subscription-manager clean
