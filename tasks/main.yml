@@ -47,6 +47,13 @@
       - rhel-8-for-x86_64-appstream-rpms
   when: ansible_facts.distribution is defined and ansible_facts.distribution == "RedHat" and ansible_facts.distribution_major_version is defined and ansible_facts.distribution_major_version == "8"
 
+- name: Define repositories to be enabled for RHEL 9
+  set_fact:
+    rhportal_reg_rhsm_repo_list:
+      - rhel-9-for-x86_64-baseos-rpms
+      - rhel-9-for-x86_64-appstream-rpms
+  when: ansible_facts.distribution is defined and ansible_facts.distribution == "RedHat" and ansible_facts.distribution_major_version is defined and ansible_facts.distribution_major_version == "9"
+
 - name: Print default list of repositories to enable
   debug:
     var: rhportal_reg_rhsm_repo_list
