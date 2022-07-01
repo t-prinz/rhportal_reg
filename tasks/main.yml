@@ -11,6 +11,7 @@
 
 - name: Unregister from the portal
   command: subscription-manager unregister
+  ignore_errors: true
 
 - name: Clean out configuration data
   command: subscription-manager clean
