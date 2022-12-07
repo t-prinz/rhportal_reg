@@ -86,8 +86,6 @@
 
   - name: Cleanup yum repositories
     command: "yum clean all"
-    args:
-      warn: No
 
   when: rhportal_reg_rhsm_state == "present"
 
