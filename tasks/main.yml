@@ -8,6 +8,7 @@
 
 - name: Remove all subscriptions
   command: subscription-manager remove --all
+  ignore_errors: true
 
 - name: Unregister from the portal
   command: subscription-manager unregister
