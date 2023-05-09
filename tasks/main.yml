@@ -3,7 +3,7 @@
 
 # This fails on RHEL 9
 #- name: Start fresh and unsubscribe to RHSM
-#  redhat_subscription:
+#  community.general.redhat_subscription:
 #    state: absent
 
 - name: Remove all subscriptions
@@ -20,7 +20,7 @@
 - block:
 
   - name: Subscribe to RHSM using an activation key
-    redhat_subscription:
+    community.general.redhat_subscription:
       activationkey: "{{ rhportal_reg_rhsm_activation_key }}"
       consumer_name: "{{ inventory_hostname }}"
 #      force_register: yes
@@ -33,7 +33,7 @@
 - block:
 
   - name: Subscribe to RHSM using a username, password, and pool ID(s)
-    redhat_subscription:
+    community.general.redhat_subscription:
       consumer_name: "{{ inventory_hostname }}"
       pool_ids: "{{ rhportal_reg_rhsm_pool_ids }}"
       password: "{{ rhportal_reg_rhsm_pw }}"
